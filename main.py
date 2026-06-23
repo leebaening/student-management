@@ -1,5 +1,65 @@
+def add_student():
 
-students= []
+    name = input("Enter name: ")
+    age = int(input("Enter age: "))
+    gpa = float(input("Enter GPA: "))
+
+    with open("students.txt", "a") as file:
+        file.write(f"{name},{age},{gpa}\n")
+
+    print("Student added successfully")
+
+
+def show_students():
+
+    try:
+
+        with open("students.txt", "r") as file:
+
+            lines = file.readlines()
+
+            if len(lines) == 0:
+                print("No students found")
+
+            else:
+
+                print("\nStudent List:")
+
+                for line in lines:
+                    print(line.strip())
+
+    except FileNotFoundError:
+        print("No students found")
+
+
+
+def search_student():
+
+    search_name = input("Enter student name: ")
+
+    found = False
+
+    with open("students.txt", "r") as file:
+
+        for line in file:
+
+            data = line.strip().split(",")
+
+            if data[0] == search_name:
+
+                print()
+
+                print("Name:", data[0])
+                print("Age:", data[1])
+                print("GPA:", data[2])
+
+                found = True
+
+    if not found:
+        print("Student not found")
+
+
+
     
 while True:
     print("\n===== STUDENT MANAGER =====")
@@ -10,71 +70,23 @@ while True:
 
     choice = int(input("Choose: "))
     if choice == 1:
-        name = input("Enter name: ")
-        age = int(input("Enter age: "))
-        gpa = float(input("Enter GPA: "))
-        student = {
-           "name": name,
-           "age": age,
-           "gpa": gpa
-        }
-        students.append(student)
-
-        with open("students.txt", "a") as file:
-          file.write(f"{name},{age},{gpa}\n")
+     add_student()
+     
 
     elif choice == 2:
+     show_students()
 
-     try:
-        with open("students.txt", "r") as file:
-
-            lines = file.readlines()
-
-            if len(lines) == 0:
-                print("No students found")
-
-            else:
-                print("\nStudent List:")
-
-                for line in lines:
-                    print(line.strip())
-
-     except FileNotFoundError:
-        print("No students found")
-
-        if len(students) == 0:
-            print("No students found")
-
-        else:
-            print("\nStudent List:")
-
-
-            for student in students:
-               print(
-                    f"Name: {student['name']}, "
-                    f"Age: {student['age']}, "
-                    f"GPA: {student['gpa']}"
-    )
+     
 
     elif choice == 3:
 
         print("Goodbye")
         break
+
+
     elif choice == 4:
-         searchname = input("Enter student name: ")
-         found = False
- 
-         for student in students:
-
-            if student["name"] == searchname:
-
-               found = True
-
-               for key, value in student.items():
-                print(key, value)
-
-         if not found:
-               print("Student not found")
+         search_student()
+         
         
         
     else:
