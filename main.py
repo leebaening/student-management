@@ -60,13 +60,44 @@ def search_student():
 
 
 
+def delete_student():
+    delete_name = input("Enter student name to delete: ")
+
+    try:
+        with open("students.txt", "r") as file:
+            lines = file.readlines()
+
+        found = False
+        remaining = []
+
+        for line in lines:
+            data = line.strip().split(",")
+            if data[0] != delete_name:
+                 remaining.append(line)
+            else:
+                 found = True
+
+        if not found:
+            print("Student not found")
+            return
+
+        with open("students.txt", "w") as file:
+            file.writelines(remaining)
+
+        print(f"Student '{delete_name}' deleted successfully")
+
+    except FileNotFoundError:
+        print("No students found")
     
+    
+
 while True:
     print("\n===== STUDENT MANAGER =====")
     print("1. Add Student")
     print("2. Show Students")
     print("3. Exit")
     print("4. Search Student ")
+    print("5. Delete Student")
 
     choice = int(input("Choose: "))
     if choice == 1:
@@ -86,7 +117,11 @@ while True:
 
     elif choice == 4:
          search_student()
-         
+
+
+
+    elif choice == 5:
+        delete_student()
         
         
     else:
