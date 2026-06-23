@@ -20,7 +20,27 @@ while True:
         }
         students.append(student)
 
+        with open("students.txt", "a") as file:
+          file.write(f"{name},{age},{gpa}\n")
+
     elif choice == 2:
+
+     try:
+        with open("students.txt", "r") as file:
+
+            lines = file.readlines()
+
+            if len(lines) == 0:
+                print("No students found")
+
+            else:
+                print("\nStudent List:")
+
+                for line in lines:
+                    print(line.strip())
+
+     except FileNotFoundError:
+        print("No students found")
 
         if len(students) == 0:
             print("No students found")
@@ -30,9 +50,11 @@ while True:
 
 
             for student in students:
-             print(student["name"])
-             print(student["age"])
-             print(student["gpa"])
+               print(
+                    f"Name: {student['name']}, "
+                    f"Age: {student['age']}, "
+                    f"GPA: {student['gpa']}"
+    )
 
     elif choice == 3:
 
