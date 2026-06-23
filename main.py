@@ -19,7 +19,7 @@ def add_student():
     with open("students.txt", "a") as file:
         file.write(f"{name},{age},{gpa}\n")
 
-    print("Student added successfully")
+    print("Student added successfully!")
 
 
 def show_students():
